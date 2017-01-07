@@ -1,0 +1,32 @@
+﻿@{
+	ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+	<h1>MyProjectManager</h1>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<h2>Welcome to MyProjectManager</h2>
+	</div>
+	<div class="col-md-4">
+		<h2>Login</h2>
+		<p>Login using the username and the password you set up on your first login.</p>
+		<p>
+			<a class="btn btn-default" 
+			   href="@Url.Action("Login", "Home")">
+			Login &raquo;
+			</a>
+		</p>
+	</div>
+	<div class="col-md-4">
+		<h2>Sign in</h2>
+		<p>Sign in using the email address provided to you by your company and set up the details of your account.</p>
+		<p>
+			<a class="btn btn-default" 
+			   href="@Url.Action("Signin", "Home")">
+			Sign in &raquo;
+			</a>
+		</p>
+	</div>
+</div>

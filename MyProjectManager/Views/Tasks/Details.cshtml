@@ -1,0 +1,58 @@
+﻿@model MyProjectManager.Models.Task
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 style="margin-top:110px">Details</h2>
+
+<div>
+    <h4>Task</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstimatedEffort)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstimatedEffort)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConsumedEffort)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConsumedEffort)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Component)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Component)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,26 @@
+﻿@model MyProjectManager.Models.Task
+
+<div style="margin-top:10px">
+    <table class="table">
+        <tr>
+            <th>Summary</th>
+            <th>Component</th>
+            <th>Status</th>
+            <th>Responsible</th>
+            <th>Estimated Effort(h)</th>
+        </tr>
+        @using (Html.BeginCollectionItem("Tasks"))
+        {
+            <tr>
+                <td>@Html.EditorFor(model => model.Summary)</td>
+                <td>@Html.EnumDropDownListFor(model => model.Component)</td>
+                <td>@Html.EnumDropDownListFor(model => model.Status)</td>
+                <td>@Html.DropDownListFor(model => model.ResposibleUserID, (SelectList)ViewBag.Users, "Select user")</td>
+                <td>@Html.EditorFor(model => model.EstimatedEffort)</td>
+            </tr>
+        }
+    </table>
+    
+</div>
+
+

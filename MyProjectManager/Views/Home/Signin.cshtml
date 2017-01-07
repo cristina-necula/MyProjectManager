@@ -1,0 +1,64 @@
+﻿@using MyProjectManager.Helpers
+@model MyProjectManager.Models.User
+
+@{
+	ViewBag.Title = "Signin";
+}
+
+<h2 style="margin-top:110px">Signin</h2>
+<p>Sign in using the email address provided to you by your company and set up the details of your account.</p>
+
+@if (TempData[Constants.NOTICE] != null)
+{
+	<h4 style="color:red">@TempData[Constants.NOTICE]</h4>
+}
+
+@using (Html.BeginForm("ValidateSignin", "Home", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		<div class="form-group">
+			@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Signin &raquo;" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+

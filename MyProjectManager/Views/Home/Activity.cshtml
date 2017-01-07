@@ -1,0 +1,66 @@
+﻿@using MyProjectManager.ViewModels
+@model List<ActivityViewModel>
+
+<div style="margin-top:110px">
+    <h2>Activity</h2>
+
+    @if (Model.Count == 1)
+    {
+        <table class="table">
+            <tr>
+                <th>Project @Html.DisplayFor(modelItem => modelItem[0].ProjectName)</th>
+                <th>Description</th>
+                <th>Timestamp</th>
+            </tr>
+        
+            @foreach (var item in Model[0].Activities)
+            {
+                <tr>
+                    <td></td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th>Project</th>
+                <th>Description</th>
+                <th>Timestamp</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @if (item.ProjectName == null)
+                    {
+                        <td>NA</td>
+                    }
+                    else
+                    {
+                        <td>@Html.DisplayFor(modelItem => item.ProjectName)</td>
+                    }
+
+                    <td>
+                        @foreach (var activity in item.Activities)
+                        {
+                            @Html.DisplayFor(modelItem => activity.Description)
+                            <br />
+                        }
+                    </td>
+                    <td>
+                        @foreach (var activity in item.Activities)
+                    {
+                            @Html.DisplayFor(modelItem => activity.Timestamp)
+                            <br />
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+

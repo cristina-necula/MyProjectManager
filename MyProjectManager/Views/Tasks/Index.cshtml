@@ -1,0 +1,59 @@
+﻿@using MyProjectManager.Helpers
+@using MyProjectManager.Enums
+@model List<MyProjectManager.ViewModels.TaskViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="margin-top:110px">
+    <h2>Tasks</h2>
+
+    @if (ApplicationState.Instance.CurrentProject != null &&
+         RoleToPermissionMapper.CurrentUserHasAccess(Permission.CreateTask))
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+
+    
+
+    @foreach(var item in Model)
+    {
+        <h4 style="margin-top:15px">Sprint - @Html.DisplayFor(modelItem => item.SprintName)</h4>
+        <table class="table">
+            <tr>
+                <th style="width:400px">Summary</th>
+                <th>Responsible</th>
+                <th>Status</th>
+                <th>Component</th>
+                <th>Estimated Effort</th>
+                <th>Consumed Effort</th>
+                <th></th>
+            </tr>
+
+        @foreach (var task in item.Tasks)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => task.Summary)</td>
+                <td>@Html.DisplayFor(modelItem => ViewData[task.ResposibleUserID.ToString()])</td>
+                <td>@Html.DisplayFor(modelItem => task.Status)</td>
+                <td>@Html.DisplayFor(modelItem => task.Component)</td>
+                <td>@Html.DisplayFor(modelItem => task.EstimatedEffort)</td>
+                <td>@Html.DisplayFor(modelItem => task.ConsumedEffort)</td>
+                
+                <td>
+                    @if (ApplicationState.Instance.CurrentProject != null &&
+                        RoleToPermissionMapper.CurrentUserHasAccess(Permission.EditTask))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = task.ID })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+    }
+
+    
+</div>
