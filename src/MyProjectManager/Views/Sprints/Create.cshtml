@@ -1,0 +1,106 @@
+﻿@using MyProjectManager.ViewModels
+@using MyProjectManager.Helpers
+@model SprintViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@if (ApplicationState.Instance.CurrentUser != null)
+{
+
+    <div style="margin-top:110px">
+
+        @if (TempData[Constants.NOTICE] != null)
+        {
+            <h4 style="color:red">@TempData[Constants.NOTICE]</h4>
+        }
+
+        <h2>Create New Sprint</h2>
+    
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Sprint.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Sprint.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Sprint.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Sprint.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Sprint.Milestone, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Sprint.Milestone, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Start Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Sprint.StartDate, new { htmlAttributes = new { @class = "date-picker form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Estimated Finish Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Sprint.EstimatedFinishDate, new { htmlAttributes = new { @class = "date-picker form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Tasks</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                                type="button"
+                                id="addTask"
+                                name="addTask"
+                                value="Add New Task" />
+                    </div>
+                </div>
+
+                <div class="form-group" id="tasks"></div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        }
+
+    </div>
+}
+@section Scripts {
+
+    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+    <script type='text/javascript'>
+        $(function(){
+          $('.date-picker').datepicker();
+        })
+    </script>
+
+    <script type="text/javascript">
+        $("#addTask").on('click', function () {
+            $.ajax({
+                async: false,
+                url: '/Sprints/AddNewTask'
+            }).success(function (partialView) {
+                $('#tasks').append(partialView);
+            });
+        });
+    </script>
+}
+
+

@@ -1,0 +1,96 @@
+﻿@using MyProjectManager.Enums
+@using MyProjectManager.Helpers
+@using MyProjectManager.ViewModels
+@model ProgramViewModel
+
+@if (ApplicationState.Instance.CurrentUser != null)
+{
+
+    <div style="margin-top:110px">
+        <h2>Program</h2>
+
+        @if (ApplicationState.Instance.CurrentProject != null &&
+             RoleToPermissionMapper.CurrentUserHasAccess(Permission.CreateSprint))
+        {
+            <div style="margin-top:15px">
+                @Html.ActionLink("Add New Sprint", "Create", "Sprints")
+            </div>
+        }
+    
+        @if (ApplicationState.Instance.CurrentProject == null)
+        {
+            <p style="margin-top:15px">Please select a project to see the program</p>
+        }
+
+        <div style="margin-top:15px">
+        
+            @if (Model.Sprints.Count > 0)
+            {
+                <h4>Sprints</h4>
+
+                <table class="table">
+                    <tr>
+                        <th style="width:250px">Name</th>
+                        <th>Description</th>
+                        <th>Milestone</th>
+                        <th>Start Date</th>
+                        <th>Estimated finish date</th>
+                        @if (RoleToPermissionMapper.CurrentUserHasAccess(Permission.CreateSprint))
+                        {
+                            <th></th>
+                        }
+                    
+                    </tr>
+
+                    @foreach (var item in Model.Sprints)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Milestone)</td>
+                            <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.EstimatedFinishDate)</td>
+                            @if (RoleToPermissionMapper.CurrentUserHasAccess(Permission.CreateSprint))
+                            {
+                                <td>@Html.ActionLink("Finish Sprint", "FinishSprint", new { sprintID = item.ID })</td>
+                            }
+                        </tr>
+                    }
+
+                </table>
+            }
+
+            @if (Model.Milestones.Count > 0)
+            {
+                <h4 style="margin-top:50px">Milestones</h4>
+
+                <table class="table">
+                    <tr>
+                        <th style="width:250px">Name</th>
+                        <th>Description</th>
+                        <th>Milestone</th>
+                        <th>Start date</th>
+                        <th>Estimated finish date</th>
+                        <th>Actual finish date</th>
+                    </tr>
+
+                    @foreach (var item in Model.Milestones)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Milestone)</td>
+                            <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.EstimatedFinishDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ActualFinishDate)</td>
+                        </tr>
+                    }
+                </table>
+            }
+
+        
+        </div>
+
+    </div>
+
+}
