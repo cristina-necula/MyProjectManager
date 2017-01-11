@@ -27,7 +27,8 @@ namespace MyProjectManager.Controllers
             {
                 var taskVM = new TaskViewModel
                 {
-                    SprintName = sprint.Name
+                    SprintName = sprint.Name,
+                    CanBeEdited = !sprint.ActualFinishDate.HasValue
                 };
 
                 var sprintTasks = allTasks.Where(t => t.SprintID == sprint.ID).ToList();

@@ -10,5 +10,7 @@ namespace MyProjectManager.ViewModels
     {
         public string SprintName { get; set; }
         public List<Task> Tasks { get; set; }
+
+        public bool CanBeEdited { get; set; }
     }
 }

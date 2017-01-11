@@ -44,8 +44,9 @@
                     <td>@Html.DisplayFor(modelItem => task.ConsumedEffort)</td>
                 
                     <td>
-                        @if (ApplicationState.Instance.CurrentProject != null &&
-                RoleToPermissionMapper.CurrentUserHasAccess(Permission.EditTask))
+                        @if (ApplicationState.Instance.CurrentProject != null && 
+                            RoleToPermissionMapper.CurrentUserHasAccess(Permission.EditTask) &&
+                            item.CanBeEdited)
                         {
                             @Html.ActionLink("Edit", "Edit", new { id = task.ID })
                         }
